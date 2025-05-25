@@ -2,10 +2,11 @@ interface QRDisplayProps {
   qrCodeUrl: string
   isLoading: boolean
   error: string | null
-  onDownload: () => void
+  onPngDownload: () => void
+  onSvgDownload: () => void
 }
 
-export const QRDisplay = ({ qrCodeUrl, isLoading, error, onDownload }: QRDisplayProps) => {
+export const QRDisplay = ({ qrCodeUrl, isLoading, error, onPngDownload, onSvgDownload }: QRDisplayProps) => {
   if (isLoading) {
     return (
       <div className="bg-white rounded-lg shadow-md p-6 text-center">
@@ -49,12 +50,20 @@ export const QRDisplay = ({ qrCodeUrl, isLoading, error, onDownload }: QRDisplay
           className="border border-gray-200 rounded-lg"
         />
       </div>
-      <button
-        onClick={onDownload}
-        className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition-colors"
-      >
-        PNG로 다운로드
-      </button>
+      <div className="flex gap-3 justify-center">
+        <button
+          onClick={onPngDownload}
+          className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition-colors"
+        >
+          PNG 다운로드
+        </button>
+        <button
+          onClick={onSvgDownload}
+          className="bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-md transition-colors"
+        >
+          SVG 다운로드
+        </button>
+      </div>
     </div>
   )
 }
