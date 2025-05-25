@@ -1,3 +1,5 @@
+import { memo } from 'react'
+
 interface QRDisplayProps {
   qrCodeUrl: string
   isLoading: boolean
@@ -7,7 +9,7 @@ interface QRDisplayProps {
   onClipboardCopy: () => void
 }
 
-export const QRDisplay = ({ qrCodeUrl, isLoading, error, onPngDownload, onSvgDownload, onClipboardCopy }: QRDisplayProps) => {
+export const QRDisplay = memo(({ qrCodeUrl, isLoading, error, onPngDownload, onSvgDownload, onClipboardCopy }: QRDisplayProps) => {
   if (isLoading) {
     return (
       <div className="bg-white rounded-lg shadow-md p-6 text-center">
@@ -73,4 +75,4 @@ export const QRDisplay = ({ qrCodeUrl, isLoading, error, onPngDownload, onSvgDow
       </div>
     </div>
   )
-}
+})

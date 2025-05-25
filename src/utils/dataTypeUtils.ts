@@ -1,22 +1,6 @@
-// 데이터 타입 정의
-export type DataType = 'phone' | 'email' | 'url' | 'sms' | 'wifi' | 'geo' | 'text'
+import { DataType, FormatResult } from '../types/qr.types'
 
-export interface FormatResult {
-  type: DataType
-  original: string
-  formatted: string
-  description: string
-}
-
-export interface HistoryItem {
-  id: string
-  original: string
-  formatted: string
-  type: DataType
-  description: string
-  timestamp: number
-  isFavorite?: boolean
-}
+export type { DataType, FormatResult }
 
 // 정규표현식 패턴들
 const patterns = {

@@ -1,4 +1,5 @@
-import { FormatResult } from '../utils/dataTypeUtils'
+import { memo } from 'react'
+import type { FormatResult } from '../types/qr.types'
 
 interface TextInputProps {
   value: string
@@ -7,7 +8,7 @@ interface TextInputProps {
   formatResult?: FormatResult | null
 }
 
-export const TextInput = ({ value, onChange, placeholder, formatResult }: TextInputProps) => {
+export const TextInput = memo(({ value, onChange, placeholder, formatResult }: TextInputProps) => {
   return (
     <div className="bg-white rounded-lg shadow-md p-6 mb-8">
       <label htmlFor="text-input" className="block text-sm font-medium text-gray-700 mb-2">
@@ -38,4 +39,4 @@ export const TextInput = ({ value, onChange, placeholder, formatResult }: TextIn
       )}
     </div>
   )
-}
+})

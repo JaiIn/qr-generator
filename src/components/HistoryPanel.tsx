@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { HistoryItem } from '../utils/dataTypeUtils'
+import type { HistoryItem } from '../types/qr.types'
 
 interface HistoryPanelProps {
   history: HistoryItem[]

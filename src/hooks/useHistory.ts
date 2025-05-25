@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { HistoryItem } from '../utils/dataTypeUtils'
+import type { HistoryItem } from '../types/qr.types'
 
 const HISTORY_KEY = 'qr-generator-history'
 const MAX_HISTORY_ITEMS = 20

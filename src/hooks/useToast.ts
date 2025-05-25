@@ -1,13 +1,5 @@
 import { useState, useCallback } from 'react'
-
-export type ToastType = 'success' | 'error' | 'info' | 'warning'
-
-export interface Toast {
-  id: string
-  message: string
-  type: ToastType
-  duration?: number
-}
+import type { Toast, ToastType } from '../types/qr.types'
 
 export const useToast = () => {
   const [toasts, setToasts] = useState<Toast[]>([])

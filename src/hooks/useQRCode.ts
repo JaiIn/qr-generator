@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import QRCode from 'qrcode'
-import { QRCodeOptions } from '../types/qr.types'
+import type { QRCodeOptions } from '../types/qr.types'
 
 export const useQRCode = (text: string, options?: Partial<QRCodeOptions>) => {
   const [qrCodeUrl, setQrCodeUrl] = useState('')
@@ -8,16 +8,17 @@ export const useQRCode = (text: string, options?: Partial<QRCodeOptions>) => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const defaultOptions: QRCodeOptions = {
+  const qrOptions = useMemo((): QRCodeOptions => ({
     width: 256,
     margin: 2,
     color: {
       dark: '#000000',
       light: '#FFFFFF'
-    }
-  }
+    },
+    ...options
+  }), [options])
 
-  const generateQRCode = async (inputText: string) => {
+  const generateQRCode = useCallback(async (inputText: string) => {
     if (!inputText.trim()) {
       setQrCodeUrl('')
       setQrSvgString('')
@@ -29,37 +30,34 @@ export const useQRCode = (text: string, options?: Partial<QRCodeOptions>) => {
     setError(null)
 
     try {
-      // PNG 생성
-      const url = await QRCode.toDataURL(inputText, {
-        ...defaultOptions,
-        ...options
-      })
-      setQrCodeUrl(url)
-
-      // SVG 생성
-      const svg = await QRCode.toString(inputText, {
-        type: 'svg',
-        ...defaultOptions,
-        ...options
-      })
-      setQrSvgString(svg)
+      const [pngUrl, svgString] = await Promise.all([
+        QRCode.toDataURL(inputText, qrOptions),
+        QRCode.toString(inputText, { type: 'svg', ...qrOptions })
+      ])
+      
+      setQrCodeUrl(pngUrl)
+      setQrSvgString(svgString)
     } catch (err) {
       console.error('QR 코드 생성 실패:', err)
       setError('QR 코드 생성에 실패했습니다.')
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [qrOptions])
 
   useEffect(() => {
     generateQRCode(text)
-  }, [text, options])
+  }, [text, generateQRCode])
+
+  const regenerate = useCallback(() => {
+    generateQRCode(text)
+  }, [generateQRCode, text])
 
   return {
     qrCodeUrl,
     qrSvgString,
     isLoading,
     error,
-    regenerate: () => generateQRCode(text)
+    regenerate
   }
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Toast } from '../hooks/useToast'
+import type { Toast } from '../types/qr.types'
 
 interface ToastItemProps {
   toast: Toast
