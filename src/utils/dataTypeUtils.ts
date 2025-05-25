@@ -8,6 +8,16 @@ export interface FormatResult {
   description: string
 }
 
+export interface HistoryItem {
+  id: string
+  original: string
+  formatted: string
+  type: DataType
+  description: string
+  timestamp: number
+  isFavorite?: boolean
+}
+
 // 정규표현식 패턴들
 const patterns = {
   // 전화번호: 다양한 형태 지원
