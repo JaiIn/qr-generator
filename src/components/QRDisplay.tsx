@@ -4,9 +4,10 @@ interface QRDisplayProps {
   error: string | null
   onPngDownload: () => void
   onSvgDownload: () => void
+  onClipboardCopy: () => void
 }
 
-export const QRDisplay = ({ qrCodeUrl, isLoading, error, onPngDownload, onSvgDownload }: QRDisplayProps) => {
+export const QRDisplay = ({ qrCodeUrl, isLoading, error, onPngDownload, onSvgDownload, onClipboardCopy }: QRDisplayProps) => {
   if (isLoading) {
     return (
       <div className="bg-white rounded-lg shadow-md p-6 text-center">
@@ -50,7 +51,7 @@ export const QRDisplay = ({ qrCodeUrl, isLoading, error, onPngDownload, onSvgDow
           className="border border-gray-200 rounded-lg"
         />
       </div>
-      <div className="flex gap-3 justify-center">
+      <div className="flex flex-wrap gap-2 justify-center">
         <button
           onClick={onPngDownload}
           className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition-colors"
@@ -62,6 +63,12 @@ export const QRDisplay = ({ qrCodeUrl, isLoading, error, onPngDownload, onSvgDow
           className="bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-md transition-colors"
         >
           SVG 다운로드
+        </button>
+        <button
+          onClick={onClipboardCopy}
+          className="bg-purple-500 hover:bg-purple-600 text-white font-medium py-2 px-4 rounded-md transition-colors"
+        >
+          클립보드 복사
         </button>
       </div>
     </div>
